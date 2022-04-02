@@ -1,22 +1,23 @@
-import { getProducts } from "../../asynmock.js"
 import { useState, useEffect } from 'react'
 import ItemList from '../ItemList/ItemList.js'
+import items from "../../asynmock.js"
 
 const ItemListContainer = ({greeting}) => {
      
     const [products, setProducts] = useState([])
     useEffect(() => {
-         getProducts().then(response => {
-            setProducts(response)
+         let getItems = new Promise ((resolve, reject) => {
+             setTimeout (() => {
+                 items && items.length ? resolve(items) : reject ("error 404")
+             }, 2000)
          })
+         getItems.then((resolve) => {setProducts(resolve)})
      }, [])
 
     return (
         <div>
             <h1>{greeting}</h1>
-            <ul>
-                {products.map(product => <li key={product.id}>{product.title}</li>)}
-            </ul>
+            <ItemList items={products} />
         </div>
     )
   }
