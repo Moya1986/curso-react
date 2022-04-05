@@ -7,7 +7,6 @@ const ItemList = ({items}) => {
 
     return (
         <div>
-            <h1>Products</h1>
             <ul>
                 {items.map((item) => {
                     return <Item key={item.id} item = {item}/>

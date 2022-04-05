@@ -1,12 +1,12 @@
 import React from "react"
 import {Card} from "react-bootstrap"
-import {Button} from "react-bootstrap"
+import {Link} from "react-router-dom"
 import ItemCount from "../ItemCount/ItemCount.js"
- 
+import { Button } from "react-bootstrap"
+import './Item.css'
+
 const Item = ({item}) => {
-    const onAdd = (quantity) => {
-        console.log(quantity)
-      }
+
     return (
         <div>
             <Card style={{ width: '18rem' }} key = {item.id}>
@@ -14,10 +14,12 @@ const Item = ({item}) => {
                 <Card.Body>
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Text>
-                <p>${item.price}</p>
+                ${item.price}
                 </Card.Text>
-                <Button variant="primary">Detalle</Button>
-                <ItemCount initial={0} stock={25} onAdd ={onAdd}/>
+                <Button variant="primary" >
+                    <Link to={`/item/${item.id}`} className="Link" > Detalle </Link> 
+                </Button>
+                <ItemCount initial={0} stock={25}/>
                 </Card.Body>
             </Card>
         </div>
