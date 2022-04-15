@@ -1,17 +1,19 @@
-import { useState, useContext } from "react"
+import { useState, useContext} from "react"
 import {Card} from "react-bootstrap"
+import { Link } from "react-router-dom"
+import { Button } from "react-bootstrap"
 import ItemCount from "../ItemCount/ItemCount"
-import { CartContext } from "../../App"
+import CartContext from "../Context/CartContext"
+import './ItemDetail.css'
 
 const ItemDetail = ({id, title, img, price, stock, description}) => {
     const [quantity, setQuantity] = useState(0)
 
-    const {cart, setCart} = useContext(CartContext)
+    const {addItem}= useContext(CartContext)
 
     const handleOnAdd = (count) => {
-        console.log("agregué al carrito")
         setQuantity(count)
-        setCart([...cart, {id, title, price, count}])
+        addItem({id, title, price}, count)
     }
 
     return (
@@ -22,7 +24,10 @@ const ItemDetail = ({id, title, img, price, stock, description}) => {
                 <Card.Title>{title}</Card.Title>
                 <Card.Text>{description}</Card.Text>
                 <Card.Text>${price}</Card.Text>
-                {quantity === 0 ? <ItemCount onAdd = {handleOnAdd}  /> : <button>Ir al Carrito</button> }
+                {quantity === 0 ? <ItemCount onAdd = {handleOnAdd}  /> : 
+                <Button variant='primary'>
+                    <Link to='/cart' className='Link'> Ir al Carrito </Link>
+                </Button> }
                 </Card.Body>
             </Card>
         </div>
