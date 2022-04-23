@@ -10,7 +10,7 @@ const Cart = () => {
         <div>
             <h1>Cart</h1>
             <ul>
-                {cart.map(prod =><li key={prod.id}>{prod.name}</li>)}
+                {cart.map(prod =><li key={prod.id}>{prod.title}</li>)}
             </ul>
             <Button variant='primary' onClick={clearCart}>Vaciar carrito</Button>
         </div>

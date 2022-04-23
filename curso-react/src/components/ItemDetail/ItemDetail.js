@@ -5,15 +5,18 @@ import { Button } from "react-bootstrap"
 import ItemCount from "../ItemCount/ItemCount"
 import CartContext from "../Context/CartContext"
 import './ItemDetail.css'
+import { useNotification } from '../../notification/notification'
 
 const ItemDetail = ({id, title, img, price, stock, description}) => {
     const [quantity, setQuantity] = useState(0)
 
     const {addItem}= useContext(CartContext)
+    const { setNotification } = useNotification()
 
     const handleOnAdd = (count) => {
         setQuantity(count)
         addItem({id, title, price}, count)
+        setNotification('success', 'Se agregaron correctamente los productos al carrito')
     }
 
     return (

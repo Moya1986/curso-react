@@ -1,5 +1,6 @@
 import CartWidget from '../CartWidget/CartWidget.js'
 import { Link } from "react-router-dom"
+
 const NavBar = () => {
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,7 +30,7 @@ const NavBar = () => {
                             <Link className="nav-link" to="/Contact">Contacto</Link>
                         </li>
                         <li>
-                            {CartWidget()}
+                            <CartWidget />
                         </li>
                     </ul>
                 </div>

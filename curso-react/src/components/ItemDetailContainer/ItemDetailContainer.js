@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
-import { getProductById } from '../../asynmock'
+//import { getProductById } from '../../asynmock'
 import ItemDetail from "../ItemDetail/ItemDetail"
 import { useParams } from 'react-router-dom'
+import { firestoreDb } from '../../services/firebase'
+import { getDoc, doc } from 'firebase/firestore'
 
 const ItemDetailContainer = ({addToCart, cart}) => {
     const [product, setProduct] = useState()
@@ -12,12 +14,24 @@ const ItemDetailContainer = ({addToCart, cart}) => {
     useEffect(() => {
         setLoading(true)
 
-        getProductById(itemId).then(prod => {
-            setProduct(prod)
-        }).catch(error => {console.log(error)
+        // getProductById(itemId).then(prod => {
+        //     setProduct(prod)
+        // }).catch(error => {console.log(error)
+        // }).finally(() => {
+        //     setLoading(false)
+        // })
+
+        const docRef = doc(firestoreDb, 'items', itemId)
+
+        getDoc(docRef).then(querySnapshot => {
+            const item = {id: querySnapshot.id, ...querySnapshot.data()}
+            setProduct(item)
+        }).catch(error=> {
+            console.log(error)
         }).finally(() => {
             setLoading(false)
         })
+
     }, [itemId])
 
     if(loading) {

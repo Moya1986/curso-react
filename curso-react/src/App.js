@@ -7,11 +7,13 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 import Cart from './components/Cart/Cart'
 import {BrowserRouter, Routes, Route} from "react-router-dom"
 import { CartContextProvider } from './components/Context/CartContext';
+import { NotificationProvider } from './notification/notification'
 
   function App() {
     
   return (
 <>
+  <NotificationProvider>
     <CartContextProvider>
       <BrowserRouter>
         <NavBar/>
@@ -25,6 +27,7 @@ import { CartContextProvider } from './components/Context/CartContext';
          </Routes>
       </BrowserRouter>
     </CartContextProvider>
+  </NotificationProvider>
 </>
 );
 }

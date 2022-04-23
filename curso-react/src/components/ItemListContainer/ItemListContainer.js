@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import ItemList from '../ItemList/ItemList.js'
 import items from "../../asynmock.js"
 import {useParams} from 'react-router-dom'
-import { getProductsByCategory } from '../../asynmock.js'
+//import { getProductsByCategory } from '../../asynmock.js'
+import { firestoreDb } from '../../services/firebase.js'
+import { getDocs, collection, query, where } from 'firebase/firestore'
 
 const ItemListContainer = ({greeting}) => {
      
@@ -13,13 +15,29 @@ const ItemListContainer = ({greeting}) => {
     useEffect(() => {
         if(categoryId) {
             setLoading(true)
-            getProductsByCategory(categoryId).then(items => {
-                setProducts(items)
-            }).catch(err => {
-                console.log(err)
+            // getProductsByCategory(categoryId).then(items => {
+            //     setProducts(items)
+            // }).catch(err => {
+            //     console.log(err)
+            // }).finally(() => {
+            //     setLoading(false)
+            // })
+
+            const collectionRef = categoryId
+            ? query(collection(firestoreDb, 'items'), where('category', '==', categoryId))
+            : collection(firestoreDb, 'items')
+            
+            getDocs(collectionRef).then(querySnapshot => {
+                const products = querySnapshot.docs.map(doc => {
+                    return { id: doc.id, ...doc.data()}
+                })
+                setProducts(products)
+            }).catch(error => {
+                console.log(error)
             }).finally(() => {
                 setLoading(false)
             })
+
         } else {
             setLoading(true)
             let getItems = new Promise ((resolve, reject) => {
