@@ -2,15 +2,15 @@ import {useState} from 'react'
 import { Button } from "react-bootstrap"
 import './ItemCount.css'
 
-const ItemCount = ({onAdd}) => {
-    const [count, setCount] = useState(0)
+const ItemCount = ({onAdd, initial =1}) => {
+    const [count, setCount] = useState(initial)
 
     const increment = () => {
             setCount(count + 1)
     }
 
     const decrement = () => {
-        if(count > 0) {
+        if(count > 1) {
             setCount(count - 1)
         }
     }
