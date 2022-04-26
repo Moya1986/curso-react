@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import ItemList from '../ItemList/ItemList.js'
-import items from "../../asynmock.js"
+import { getProducts } from '../../services/firebase/firestore.js'
 import {useParams} from 'react-router-dom'
-import { firestoreDb } from '../../services/firebase/firebase.js'
-import { getDocs, collection, query, where } from 'firebase/firestore'
 
 const ItemListContainer = ({greeting}) => {
      
@@ -12,38 +10,15 @@ const ItemListContainer = ({greeting}) => {
     const {categoryId} = useParams()
 
     useEffect(() => {
-        if(categoryId) {
             setLoading(true)
-            const collectionRef = categoryId
-            ? query(collection(firestoreDb, 'items'), where('category', '==', categoryId))
-            : collection(firestoreDb, 'items')
-            
-            getDocs(collectionRef).then(querySnapshot => {
-                const products = querySnapshot.docs.map(doc => {
-                    return { id: doc.id, ...doc.data()}
-                })
-                setProducts(products)
-            }).catch(error => {
-                console.log(error)
-            }).finally(() => {
-                setLoading(false)
-            })
 
-        } else {
-            setLoading(true)
-            let getItems = new Promise ((resolve, reject) => {
-                setTimeout (() => {
-                    items && items.length ? resolve(items) : reject ("error 404")
-                }, 2000)
-            })
-            getItems.then(item => {
-                setProducts(item)
-            }).catch(err => {
-                console.log(err)
-            }).finally(() => {
-                setLoading(false)
-            })
-        }
+                getProducts(categoryId).then(products => {
+                    setProducts(products)
+                }).catch(err => {
+                    console.log(err)
+                }).finally(() =>{
+                    setLoading(false)
+                })
 
     return (() => {
         setProducts([])
@@ -61,7 +36,7 @@ const ItemListContainer = ({greeting}) => {
     return (
         <div>
             <h1>{greeting}</h1>
-            <ItemList items={products} />
+            <ItemList products={products} />
         </div>
     )
   }

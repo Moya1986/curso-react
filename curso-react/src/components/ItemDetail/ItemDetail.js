@@ -7,13 +7,13 @@ import CartContext from "../Context/CartContext"
 import './ItemDetail.css'
 import { useNotification } from '../../notification/notification'
 
-const ItemDetail = ({id, title, img, price, stock, description}) => {
+const ItemDetail = ({id, name, img, price, stock, description}) => {
 
     const {addItem, isInCart}= useContext(CartContext)
     const { setNotification } = useNotification()
 
     const handleOnAdd = (count) => {
-        addItem({id, title, price}, count)
+        addItem({id, name, price}, count)
         setNotification('success', 'Se agregaron correctamente los productos al carrito')
     }
 
@@ -22,7 +22,7 @@ const ItemDetail = ({id, title, img, price, stock, description}) => {
             <Card style={{ width: '18rem' }} key = {id}>
                 <Card.Img variant="top" src={img} />
                 <Card.Body>
-                <Card.Title>{title}</Card.Title>
+                <Card.Title>{name}</Card.Title>
                 <Card.Text>{description}</Card.Text>
                 <Card.Text>${price}</Card.Text>
                 {isInCart(id) ? <Button variant='primary'>

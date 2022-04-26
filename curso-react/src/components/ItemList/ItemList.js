@@ -3,16 +3,15 @@ import { memo } from 'react'
 import Item from "../Item/Item.js"
 
 
-const ItemList = ({items}) => {
+const ItemList = ({products}) => {
 
     return (
             <ul>
-                {items.map((item) => {
+                {products.map((item) => {
                     return <Item key={item.id} item = {item}/>
                 }
                 )}
 
-                {/* {items.map(item => <Item key={item.id} {...item} />)} */}
             </ul>
     )
 }
