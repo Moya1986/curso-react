@@ -1,18 +1,17 @@
-##Uso de este repositorio
+## Uso de este repositorio
 
-###Pasos
+### Pasos
 
-- Clonar repositorio
+- Clonar repositorio: `git clone git@github.com:Moya1986/curso-react.git`
 
-- Ejecutar npm para crear las dependencias
+- Ejecutar npm para instalar las dependencias: `npm i`
 
-- Ejecutar npm start
+- Ejecutar: `npm start`
 
 
-### Tener en cuenta
+### Detalles del proyecto
 - Se utiliza Bootstrap para el diseño.
 
 - Se utiliza Firebase, Firestore.
 
 - El proyecto permite tener la interface de un Ecommerce, con productos y un carrito de compras. Al seleccionar productos se puede ver un detalle de los mismos y, a la vez, seleccionar la cantidad a comprar. Luego se genera una órden de compra que no queda guardada en ningún lado más allá de aparecer en pantalla.
-
