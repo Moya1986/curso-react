@@ -2,11 +2,13 @@ import {useState} from 'react'
 import { Button } from "react-bootstrap"
 import './ItemCount.css'
 
-const ItemCount = ({onAdd, initial =1}) => {
+const ItemCount = ({onAdd, initial =1, stock}) => {
     const [count, setCount] = useState(initial)
 
     const increment = () => {
+        if(count < stock) {
             setCount(count + 1)
+        }
     }
 
     const decrement = () => {

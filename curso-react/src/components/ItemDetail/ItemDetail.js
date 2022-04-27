@@ -27,7 +27,7 @@ const ItemDetail = ({id, name, img, price, stock, description}) => {
                 <Card.Text>${price}</Card.Text>
                 {isInCart(id) ? <Button variant='primary'>
                     <Link to='/cart' className='Link'> Ir al Carrito </Link>
-                </Button> : <ItemCount onAdd = {handleOnAdd}  /> 
+                </Button> : <ItemCount onAdd = {handleOnAdd} stock={stock} /> 
                  }
                 </Card.Body>
             </Card>
